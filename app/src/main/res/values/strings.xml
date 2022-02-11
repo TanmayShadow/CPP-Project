@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Video Player</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="submit">Submit</string>
+    <string name="like">Like</string>
+</resources>
