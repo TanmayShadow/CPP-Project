@@ -17,20 +17,22 @@ import java.io.IOException;
 
 public class VideoActivity extends AppCompatActivity {
 
-    int videoStatus;
+    int videoStatus,dislikeCount=0;
     TextView likeNo;
-    ImageView like;
+    ImageView like, dislike;
+    boolean likeStatus=false, dislikeStatus=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
-        //hiding actionbar
-
         
         //Getting the intent
         Intent intent = getIntent();
         String user = intent.getStringExtra(MainActivity.MSG);
+
+        //Creating objects
+        dislike = findViewById(R.id.imageView3);
 
         //Getting video height and width
         MediaPlayer mp ;
@@ -81,10 +83,17 @@ public class VideoActivity extends AppCompatActivity {
         int no = Integer.parseInt(likeNo.getText().toString());
         if(check.equals("0"))
         {
+            if(dislikeStatus)
+            {
+                dislike.setImageResource(R.drawable.ic_baseline_thumb_down_white);
+                dislike.setTag("0");
+                dislikeStatus=false;
+            }
             like.setTag("1");
             like.setImageResource(R.drawable.smallliked1);
             no=no+1;
             likeNo.setText(""+no);
+            likeStatus=true;
         }
         else
         {
@@ -92,9 +101,35 @@ public class VideoActivity extends AppCompatActivity {
             like.setImageResource(R.drawable.smallunliked1);
             no=no-1;
             likeNo.setText(""+no);
+            likeStatus=false;
         }
 
     }
+
+    public void checkDislike(View view)
+    {
+        String tag = dislike.getTag().toString();
+        if(tag.equals("0"))
+        {
+            if(likeStatus)
+            {
+                like.setTag("0");
+                like.setImageResource(R.drawable.smallunliked1);
+                likeStatus=false;
+            }
+            dislike.setImageResource(R.drawable.ic_baseline_thumb_down_24);
+            dislike.setTag("1");
+            dislikeStatus=true;
+        }
+        else
+        {
+            dislike.setImageResource(R.drawable.ic_baseline_thumb_down_white);
+            dislike.setTag("0");
+            dislikeStatus=false;
+        }
+
+    }
+
     public void goToParent(View view)
     {
         Intent parentIntent = new Intent(this,MainActivity.class);
