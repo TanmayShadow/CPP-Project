@@ -17,8 +17,7 @@ import java.io.IOException;
 
 public class VideoActivity extends AppCompatActivity {
 
-    int videoStatus,dislikeCount=0;
-    TextView likeNo;
+    int videoStatus;
     ImageView like, dislike;
     boolean likeStatus=false, dislikeStatus=false;
     @Override
@@ -79,8 +78,8 @@ public class VideoActivity extends AppCompatActivity {
     {
         ImageView like = (ImageView) findViewById(R.id.imageView);
         String check = like.getTag().toString();
-        TextView likeNo = findViewById(R.id.textView4);
-        int no = Integer.parseInt(likeNo.getText().toString());
+
+
         if(check.equals("0"))
         {
             if(dislikeStatus)
@@ -90,17 +89,13 @@ public class VideoActivity extends AppCompatActivity {
                 dislikeStatus=false;
             }
             like.setTag("1");
-            like.setImageResource(R.drawable.smallliked1);
-            no=no+1;
-            likeNo.setText(""+no);
+            like.setImageResource(R.drawable.new_like_thumb);
             likeStatus=true;
         }
         else
         {
             like.setTag("0");
-            like.setImageResource(R.drawable.smallunliked1);
-            no=no-1;
-            likeNo.setText(""+no);
+            like.setImageResource(R.drawable.new_like_thumb_white);
             likeStatus=false;
         }
 
@@ -114,7 +109,7 @@ public class VideoActivity extends AppCompatActivity {
             if(likeStatus)
             {
                 like.setTag("0");
-                like.setImageResource(R.drawable.smallunliked1);
+                like.setImageResource(R.drawable.new_like_thumb_white);
                 likeStatus=false;
             }
             dislike.setImageResource(R.drawable.ic_baseline_thumb_down_24);
