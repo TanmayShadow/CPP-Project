@@ -8,4 +8,5 @@
     <string name="dislike">Dislike</string>
     <string name="comment">Comment</string>
     <string name="download">Download</string>
+    <string name="send">Send</string>
 </resources>
