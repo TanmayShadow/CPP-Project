@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +22,10 @@ import java.io.IOException;
 public class VideoActivity extends AppCompatActivity {
 
     int videoStatus;
-    ImageView like, dislike;
+    ImageView like, dislike, likeHeartImg;
     boolean likeStatus=false, dislikeStatus=false;
+    View view;
+    Animation scale,rotate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +38,9 @@ public class VideoActivity extends AppCompatActivity {
 
         //Creating objects
         dislike = findViewById(R.id.imageView3);
+        likeHeartImg = findViewById(R.id.imageView9);
+        scale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.scale);
+        rotate = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.small_rotate);
 
         //Getting video height and width
         MediaPlayer mp ;
@@ -64,6 +73,41 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
+        //Adding onTouch and double tap listener
+        videoView.setOnTouchListener(new View.OnTouchListener()
+        {
+            GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener()
+            {
+                @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    //Adding animation to like image
+
+                    likeHeartImg.setVisibility(View.VISIBLE);
+                    likeHeartImg.startAnimation(scale);
+                    likeHeartImg.setVisibility(View.INVISIBLE);
+                    //Changing the upThumb (like button)
+                    if(dislikeStatus)
+                    {
+                        dislike.setImageResource(R.drawable.ic_baseline_thumb_down_white);
+                        dislike.setTag("0");
+                        dislikeStatus=false;
+                    }
+                    like.setTag("1");
+                    like.setImageResource(R.drawable.new_like_thumb);
+                    like.startAnimation(rotate);
+                    likeStatus=true;
+                    return super.onDoubleTap(e);
+                }
+            });
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) 
+            {
+                gestureDetector.onTouchEvent(motionEvent);
+
+                return false;
+            }
+        });
+        
         //Adding onclick listener to the like image
         like = findViewById(R.id.imageView);
         like.setOnClickListener(new View.OnClickListener(){
@@ -90,6 +134,7 @@ public class VideoActivity extends AppCompatActivity {
             }
             like.setTag("1");
             like.setImageResource(R.drawable.new_like_thumb);
+            like.startAnimation(rotate);
             likeStatus=true;
         }
         else

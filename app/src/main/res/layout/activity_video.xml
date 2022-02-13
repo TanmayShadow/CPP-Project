@@ -168,4 +168,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:srcCompat="@drawable/more_icon" />
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="89dp"
+        android:layout_height="83dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/videoView"
+        app:srcCompat="@drawable/like_image" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
