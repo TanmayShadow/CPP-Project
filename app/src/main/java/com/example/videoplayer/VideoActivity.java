@@ -5,14 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -26,6 +32,8 @@ public class VideoActivity extends AppCompatActivity {
     boolean likeStatus=false, dislikeStatus=false;
     View view;
     Animation scale,rotate;
+    VideoView videoView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +50,7 @@ public class VideoActivity extends AppCompatActivity {
         scale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.scale);
         rotate = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.small_rotate);
 
+
         //Getting video height and width
         MediaPlayer mp ;
         mp = MediaPlayer.create(this,R.raw.newtest);
@@ -51,7 +60,7 @@ public class VideoActivity extends AppCompatActivity {
         Toast.makeText(this, "Height:"+height, Toast.LENGTH_SHORT).show();
 
         //Adding video to the VideoView
-        VideoView videoView = findViewById(R.id.videoView);
+        videoView = findViewById(R.id.videoView);
         videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.newtest);
         videoView.start();
         videoStatus= 1;
@@ -78,6 +87,22 @@ public class VideoActivity extends AppCompatActivity {
         {
             GestureDetector gestureDetector = new GestureDetector(getApplicationContext(), new GestureDetector.SimpleOnGestureListener()
             {
+
+
+                @Override
+                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                    float diff = e2.getY() - e1.getY();
+                    if(diff  > 0)
+                    {
+                        Toast.makeText(VideoActivity.this, "Swipe down...", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(VideoActivity.this, "Swipe up...", Toast.LENGTH_SHORT).show();
+                    }
+                    return super.onFling(e1, e2, velocityX, velocityY);
+                }
+
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
                     //Adding animation to like image
@@ -169,6 +194,14 @@ public class VideoActivity extends AppCompatActivity {
         }
 
     }
+
+    //showMore function
+    public void showMore(View view)
+    {
+        Intent popUpWindowIntent = new Intent(this,more_options.class);
+        startActivity(popUpWindowIntent);
+    }
+
 
     public void goToParent(View view)
     {

@@ -9,4 +9,7 @@
     <string name="comment">Comment</string>
     <string name="download">Download</string>
     <string name="send">Send</string>
+    <string name="about">   About</string>
+    <string name="report">   Report</string>
+    <string name="reason">Reason</string>
 </resources>

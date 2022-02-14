@@ -10,10 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoPlayer">
         <activity
-            android:name=".VideoActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".more_options"
+            android:theme="@style/Theme.VideoPlayer.popMe"
             android:exported="false" />
+        <activity
+            android:name=".VideoActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
