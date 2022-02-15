@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoPlayer">
         <activity
+            android:name=".CommentActivity"
+            android:exported="false"
+            android:theme="@style/Theme.VideoPlayer.popMe"/>
+        <activity
             android:name=".more_options"
-            android:theme="@style/Theme.VideoPlayer.popMe"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.VideoPlayer.popMe" />
         <activity
             android:name=".VideoActivity"
             android:exported="false"

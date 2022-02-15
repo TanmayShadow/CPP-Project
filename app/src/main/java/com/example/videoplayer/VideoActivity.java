@@ -202,7 +202,12 @@ public class VideoActivity extends AppCompatActivity {
         startActivity(popUpWindowIntent);
     }
 
-
+    //showComment fundtion
+    public void showComment(View view)
+    {
+        Intent commentIntent = new Intent(this,CommentActivity.class);
+        startActivity(commentIntent);
+    }
     public void goToParent(View view)
     {
         Intent parentIntent = new Intent(this,MainActivity.class);
