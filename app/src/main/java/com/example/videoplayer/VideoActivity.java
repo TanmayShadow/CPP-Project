@@ -1,11 +1,14 @@
 package com.example.videoplayer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -30,9 +33,9 @@ public class VideoActivity extends AppCompatActivity {
     int videoStatus;
     ImageView like, dislike, likeHeartImg;
     boolean likeStatus=false, dislikeStatus=false;
-    View view;
     Animation scale,rotate;
     VideoView videoView;
+    DisplayMetrics displayMetrics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,10 @@ public class VideoActivity extends AppCompatActivity {
         likeHeartImg = findViewById(R.id.imageView9);
         scale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.scale);
         rotate = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.small_rotate);
+        displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+        int screenWidth = displayMetrics.widthPixels;
 
 
         //Getting video height and width
@@ -58,6 +65,7 @@ public class VideoActivity extends AppCompatActivity {
         int height = mp.getVideoHeight();
         Toast.makeText(this, "Width:"+width, Toast.LENGTH_SHORT).show();
         Toast.makeText(this, "Height:"+height, Toast.LENGTH_SHORT).show();
+
 
         //Adding video to the VideoView
         videoView = findViewById(R.id.videoView);
@@ -95,10 +103,39 @@ public class VideoActivity extends AppCompatActivity {
                     if(diff  > 0)
                     {
                         Toast.makeText(VideoActivity.this, "Swipe down...", Toast.LENGTH_SHORT).show();
+                        //take the link of next video from the database and set it
+                        //this is temporary
+                        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.newtest);
+                        videoView.start();
+                        videoStatus= 0;
+                        //get the like status for the video from the database
+                        //this is temporary
+                        like.setTag("0");
+                        like.setImageResource(R.drawable.new_like_thumb_white);
+                        likeStatus=false;
+                        //dislike status
+                        dislike.setImageResource(R.drawable.ic_baseline_thumb_down_white);
+                        dislike.setTag("0");
+                        dislikeStatus=false;
                     }
                     else
                     {
                         Toast.makeText(VideoActivity.this, "Swipe up...", Toast.LENGTH_SHORT).show();
+                        //take the link of next video from the database and set it
+                        //this is temporary
+                        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.smallshortvideo);
+                        videoView.start();
+                        videoStatus= 0;
+                        //get the like status for the video from the database
+                        //this is temporary
+                        like.setTag("0");
+                        like.setImageResource(R.drawable.new_like_thumb_white);
+                        likeStatus=false;
+                        //dislike status
+                        dislike.setImageResource(R.drawable.ic_baseline_thumb_down_white);
+                        dislike.setTag("0");
+                        dislikeStatus=false;
+
                     }
                     return super.onFling(e1, e2, velocityX, velocityY);
                 }
