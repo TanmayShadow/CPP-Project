@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".CommentActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5E5656"
+    app:circularflow_defaultRadius="50dp"
+    app:circularflow_radiusInDP="100dp"
+    tools:context=".CommentActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,20 +26,26 @@
         android:id="@+id/editTextTextMultiLine4"
         android:layout_width="0dp"
         android:layout_height="59dp"
+        android:background="#8F8F8F"
+        android:backgroundTint="#737272"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/comment"
         android:inputType="textMultiLine"
         android:maxLines="2"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#212121"
         app:layout_constraintEnd_toStartOf="@+id/imageButton3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
+        android:layout_width="50dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="10dp"
+        android:background="#8F8F8F"
+        android:backgroundTint="#5E5656"
         android:contentDescription="@string/send"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

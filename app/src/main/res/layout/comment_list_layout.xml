@@ -3,38 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#000000">
 
     <ImageView
         android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:contentDescription="TODO"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/about_icon" />
+        app:srcCompat="@drawable/white_about_icon" />
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:layout_marginTop="10dp"
-        android:text="TextView"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="TextView:  "
+        android:textColor="#FDFDFD"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/imageView11"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginTop="10dp"
         android:text="TextView"
-        android:textColor="#000000"
+        android:textColor="#F3DAA8"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

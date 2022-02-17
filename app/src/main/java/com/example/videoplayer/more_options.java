@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 public class more_options extends AppCompatActivity {
 
     Button about,report,submit;
-    TextView username,date,description,report_title,report_info;
+    TextView date,description,report_title,report_info;
     EditText report_description;
     ImageView about_icon,report_icon;
     @Override
@@ -39,7 +39,6 @@ public class more_options extends AppCompatActivity {
 
         about = (Button) findViewById(R.id.button8);
         report = (Button) findViewById(R.id.button9);
-        username = (TextView) findViewById(R.id.textView7);
         date = (TextView) findViewById(R.id.textView8);
         description = (TextView) findViewById(R.id.textView9);
         about_icon = (ImageView) findViewById(R.id.imageView7);
@@ -70,7 +69,6 @@ public class more_options extends AppCompatActivity {
         report.setVisibility(View.INVISIBLE);
         about_icon.setVisibility(View.INVISIBLE);
         report_icon.setVisibility(View.INVISIBLE);
-        username.setVisibility(View.VISIBLE);
         date.setVisibility(View.VISIBLE);
         description.setVisibility(View.VISIBLE);
     }
