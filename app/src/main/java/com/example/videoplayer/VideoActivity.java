@@ -1,12 +1,15 @@
 package com.example.videoplayer;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,6 +25,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -36,6 +40,9 @@ public class VideoActivity extends AppCompatActivity {
     Animation scale,rotate;
     VideoView videoView;
     DisplayMetrics displayMetrics;
+    SeekBar seekBar;
+    Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,8 @@ public class VideoActivity extends AppCompatActivity {
         rotate = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.small_rotate);
         displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        seekBar = findViewById(R.id.seekBar);
+
         int screenHeight = displayMetrics.heightPixels;
         int screenWidth = displayMetrics.widthPixels;
 
@@ -70,8 +79,48 @@ public class VideoActivity extends AppCompatActivity {
         //Adding video to the VideoView
         videoView = findViewById(R.id.videoView);
         videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.newtest);
+        //Starting the video
         videoView.start();
         videoStatus= 1;
+
+        //Adding the onPreparedListener
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+
+                //setting the maximum length of seekBar
+                seekBar.setMax(videoView.getDuration());
+                //creating the thread that will run on background for every 1 seconds
+                //to move the seekbar with the video
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        //setting the progress to the seekbar
+                        seekBar.setProgress(videoView.getCurrentPosition());
+                        handler.postDelayed(this,1000);
+                    }
+                };
+                handler.post(runnable);
+            }
+        });
+
+        //Adding onChangeListener to the seekbar
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                videoView.seekTo(seekBar.getProgress());
+            }
+        });
 
         //Adding onclick listener to VideoView
         videoView.setOnClickListener(new View.OnClickListener(){
@@ -89,6 +138,7 @@ public class VideoActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         //Adding onTouch and double tap listener
         videoView.setOnTouchListener(new View.OnTouchListener()
@@ -249,6 +299,10 @@ public class VideoActivity extends AppCompatActivity {
     {
         Intent parentIntent = new Intent(this,MainActivity.class);
         startActivity(parentIntent);
+    }
+    public void followButton(View view)
+    {
+        Toast.makeText(this, "Follow is clicked..", Toast.LENGTH_SHORT).show();
     }
 
 }
