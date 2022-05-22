@@ -17,10 +17,38 @@ public class MainActivity extends AppCompatActivity {
     }
     public void showVideoActivity(View view)
     {
-            String username = "Login Successful";
-            Intent intent = new Intent(this,VideoActivity.class);
-            intent.putExtra(MSG,username);
+            Intent intent = new Intent(this,PreVideoActivity.class);
             startActivity(intent);
+    }
+    public void showMusic(View view)
+    {
+        Intent intent = new Intent(this,MusicActivity.class);
+        startActivity(intent);
+    }
+    public void showNewMusic(View view)
+    {
+        Intent intent = new Intent(this,MusicLayout.class);
+        startActivity(intent);
+    }
 
+    public void signup(View view) {
+        Intent i =new Intent(this,SignupActivity.class);
+        startActivity(i);
+    }
+
+    public void login(View view) {
+        Intent i =new Intent(this,LoginActivity.class);
+        startActivity(i);
+    }
+
+
+    public void upload(View view) {
+        Intent i = new Intent(this,UploadActivity.class);
+        startActivity(i);
+    }
+
+    public void showImage(View view) {
+        Intent i = new Intent(this,PreImageActivity.class);
+        startActivity(i);
     }
 }

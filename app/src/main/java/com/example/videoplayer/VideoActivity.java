@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -23,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
@@ -30,10 +35,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.io.IOException;
+import java.util.Random;
 
 public class VideoActivity extends AppCompatActivity {
 
+    BackgroundMYSQL backgroundMYSQL;
     int videoStatus;
     ImageView like, dislike, likeHeartImg;
     boolean likeStatus=false, dislikeStatus=false;
@@ -42,6 +52,14 @@ public class VideoActivity extends AppCompatActivity {
     DisplayMetrics displayMetrics;
     SeekBar seekBar;
     Handler handler = new Handler();
+    String uname,vname,vlike,vdislike,des,location,vid,lid;
+    String unameA[],vnameA[],vlikeA[],vdislikeA[],desA[],locationA[],vidA[],lidA[],liked[],disliked[],followed[];
+    StorageReference storageReference;
+    Uri videoUri;
+    int scroll=0;
+    TextView likeNo,dislikeNo,vnameText,unameText;
+    Random rand;
+    Button follow;
 
 
     @Override
@@ -49,10 +67,47 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
+        rand = new Random();
+
+
+
         
         //Getting the intent
         Intent intent = getIntent();
-        String user = intent.getStringExtra(MainActivity.MSG);
+        uname=intent.getStringExtra("Name");
+        vname=intent.getStringExtra("VName");
+        vlike=intent.getStringExtra("like");
+        vdislike=intent.getStringExtra("dislike");
+        des=intent.getStringExtra("des");
+        location=intent.getStringExtra("Location");
+        vid=intent.getStringExtra("vid");
+//        lid=intent.getStringExtra("lid");
+
+        likeNo=findViewById(R.id.textView4);
+        dislikeNo = findViewById(R.id.textView);
+        vnameText=findViewById(R.id.textView14);
+        unameText=findViewById(R.id.textView7);
+        follow = findViewById(R.id.button6);
+
+        unameA = uname.split(",");
+        vnameA = vname.split(",");
+        vlikeA = vlike.split(",");
+        vdislikeA = vdislike.split(",");
+        desA = des.split(",");
+        locationA = location.split(",");
+        vidA = vid.split(",");
+        liked=new String[vidA.length];
+        disliked = new String[vidA.length];
+        followed=new String[vidA.length];
+        for(int k=0;k<vidA.length;k++)
+        {
+            liked[k]="-1";
+            disliked[k]="-1";
+            followed[k]="-1";
+        }
+//        lidA = lid.split(",");
+
+//        scroll= rand.nextInt(locationA.length);
 
         //Creating objects
         dislike = findViewById(R.id.imageView3);
@@ -66,19 +121,44 @@ public class VideoActivity extends AppCompatActivity {
         int screenHeight = displayMetrics.heightPixels;
         int screenWidth = displayMetrics.widthPixels;
 
+        storageReference = FirebaseStorage.getInstance().getReference("images/"+locationA[scroll]);
+        String path1 = "https://firebasestorage.googleapis.com/v0/b/cpe-project-ddf59.appspot.com/o/videos%2F"+locationA[scroll]+"?alt=media";
+        videoUri = Uri.parse(path1);
+        likeNo.setText(vlikeA[scroll]);
+        dislikeNo.setText(vdislikeA[scroll]);
+        vnameText.setText(vnameA[scroll]);
+        unameText.setText(unameA[scroll]);
+
+//        for(int k=0;k<lidA.length;k++)
+//        {
+//            if(lidA[k].equals(vidA[scroll]))
+//            {
+//                likeStatus=true;
+//                like.setTag("1");
+//                break;
+//            }
+//            else
+//            {
+//                likeStatus=false;
+//                like.setTag("0");
+//            }
+//        }
+//        checkLike(likeStatus);
+
 
         //Getting video height and width
         MediaPlayer mp ;
         mp = MediaPlayer.create(this,R.raw.newtest);
         int width = mp.getVideoWidth();
         int height = mp.getVideoHeight();
-        Toast.makeText(this, "Width:"+width, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Height:"+height, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Width:"+width, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Height:"+height, Toast.LENGTH_SHORT).show();
 
 
         //Adding video to the VideoView
         videoView = findViewById(R.id.videoView);
-        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.newtest);
+//        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.newtest);
+        videoView.setVideoURI(videoUri);
         //Starting the video
         videoView.start();
         videoStatus= 1;
@@ -150,12 +230,36 @@ public class VideoActivity extends AppCompatActivity {
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                     float diff = e2.getY() - e1.getY();
-                    if(diff  > 0)
+                    if(diff  > 0 && scroll>0)
                     {
-                        Toast.makeText(VideoActivity.this, "Swipe down...", Toast.LENGTH_SHORT).show();
+                        scroll--;
+//                        Toast.makeText(VideoActivity.this, "Swipe down...", Toast.LENGTH_SHORT).show();
                         //take the link of next video from the database and set it
                         //this is temporary
-                        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.newtest);
+
+                        String path1 = "https://firebasestorage.googleapis.com/v0/b/cpe-project-ddf59.appspot.com/o/videos%2F"+locationA[scroll]+"?alt=media";
+                        videoUri = Uri.parse(path1);
+                        videoView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        videoView.setVideoURI(videoUri);
+                        likeNo.setText(vlikeA[scroll]);
+                        dislikeNo.setText(vdislikeA[scroll]);
+                        vnameText.setText(vnameA[scroll]);
+                        unameText.setText(unameA[scroll]);
+//                        for(int k=0;k<lidA.length;k++)
+//                        {
+//                            if(lidA[k].equals(vidA[scroll]))
+//                            {
+//                                likeStatus=true;
+//                                like.setTag("1");
+//                                break;
+//                            }
+//                            else
+//                            {
+//                                like.setTag("0");
+//                                likeStatus=false;
+//                            }
+//                        }
+//                        checkLike(likeStatus);
                         videoView.start();
                         videoStatus= 0;
                         //get the like status for the video from the database
@@ -168,12 +272,33 @@ public class VideoActivity extends AppCompatActivity {
                         dislike.setTag("0");
                         dislikeStatus=false;
                     }
-                    else
+                    else if(diff < 0 && scroll < locationA.length-1)
                     {
-                        Toast.makeText(VideoActivity.this, "Swipe up...", Toast.LENGTH_SHORT).show();
+                        scroll++;
+//                        Toast.makeText(VideoActivity.this, "Swipe up...", Toast.LENGTH_SHORT).show();
                         //take the link of next video from the database and set it
                         //this is temporary
-                        videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.smallshortvideo);
+                        String path1 = "https://firebasestorage.googleapis.com/v0/b/cpe-project-ddf59.appspot.com/o/videos%2F"+locationA[scroll]+"?alt=media";
+                        videoUri = Uri.parse(path1);
+                        videoView.setVideoURI(videoUri);
+                        videoView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        likeNo.setText(vlikeA[scroll]);
+                        dislikeNo.setText(vdislikeA[scroll]);
+                        vnameText.setText(vnameA[scroll]);
+                        unameText.setText(unameA[scroll]);
+//                        for(int k=0;k<lidA.length;k++)
+//                        {
+//                            if(lidA[k].equals(vidA[scroll]))
+//                            {
+//                                likeStatus=true;
+//                                break;
+//                            }
+//                            else
+//                            {
+//                                likeStatus=false;
+//                            }
+//                        }
+//                        checkLike(likeStatus);
                         videoView.start();
                         videoStatus= 0;
                         //get the like status for the video from the database
@@ -187,6 +312,7 @@ public class VideoActivity extends AppCompatActivity {
                         dislikeStatus=false;
 
                     }
+
                     return super.onFling(e1, e2, velocityX, velocityY);
                 }
 
@@ -198,16 +324,31 @@ public class VideoActivity extends AppCompatActivity {
                     likeHeartImg.startAnimation(scale);
                     likeHeartImg.setVisibility(View.INVISIBLE);
                     //Changing the upThumb (like button)
-                    if(dislikeStatus)
+                    if(!disliked[scroll].equals("-1"))
                     {
                         dislike.setImageResource(R.drawable.ic_baseline_thumb_down_white);
                         dislike.setTag("0");
+                        disliked[scroll]="-1";
+                        minusDisLike();
+                        backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+                        backgroundMYSQL.execute("minusDislike",vidA[scroll]);
+                        backgroundMYSQL=null;
                         dislikeStatus=false;
                     }
                     like.setTag("1");
                     like.setImageResource(R.drawable.new_like_thumb);
                     like.startAnimation(rotate);
                     likeStatus=true;
+                    if(liked[scroll].equals("-1"))
+                    {
+                        liked[scroll]=vidA[scroll];
+                        addLike();
+                        backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+                        backgroundMYSQL.execute("addlike",vidA[scroll]);
+                        backgroundMYSQL=null;
+                    }
+
+
                     return super.onDoubleTap(e);
                 }
             });
@@ -230,29 +371,55 @@ public class VideoActivity extends AppCompatActivity {
         });
 
     }
+    public void checkLike(boolean b)
+    {
+        if(b){
+            like.setImageResource(R.drawable.new_like_thumb);
+        }
+        else
+            like.setImageResource(R.drawable.ic_baseline_thumb_up_white);
+    }
     public void checkLike(View view)
     {
         ImageView like = (ImageView) findViewById(R.id.imageView);
         String check = like.getTag().toString();
 
 
-        if(check.equals("0"))
+        if(liked[scroll].equals("-1"))
         {
-            if(dislikeStatus)
+            if(!disliked[scroll].equals("-1"))
             {
                 dislike.setImageResource(R.drawable.ic_baseline_thumb_down_white);
                 dislike.setTag("0");
                 dislikeStatus=false;
+                minusDisLike();
+                backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+                backgroundMYSQL.execute("minusDislike",vidA[scroll]);
+                backgroundMYSQL=null;
+                disliked[scroll]="-1";
             }
             like.setTag("1");
             like.setImageResource(R.drawable.new_like_thumb);
             like.startAnimation(rotate);
+            liked[scroll]=vidA[scroll];
+            addLike();
+            backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+            backgroundMYSQL.execute("addlike",vidA[scroll]);
+            backgroundMYSQL=null;
+
+//            ldb.addLike(Integer.parseInt(vidA[scroll]));
             likeStatus=true;
         }
         else
         {
             like.setTag("0");
             like.setImageResource(R.drawable.new_like_thumb_white);
+//            ldb.removeLike(Integer.parseInt(vidA[scroll]));
+            minusLike();
+            backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+            backgroundMYSQL.execute("minuslike",vidA[scroll]);
+            backgroundMYSQL=null;
+            liked[scroll]="-1";
             likeStatus=false;
         }
 
@@ -261,23 +428,38 @@ public class VideoActivity extends AppCompatActivity {
     public void checkDislike(View view)
     {
         String tag = dislike.getTag().toString();
-        if(tag.equals("0"))
+        if(disliked[scroll].equals("-1"))
         {
-            if(likeStatus)
+            if(!liked[scroll].equals("-1"))
             {
                 like.setTag("0");
                 like.setImageResource(R.drawable.new_like_thumb_white);
                 likeStatus=false;
+                liked[scroll]="-1";
+                minusLike();
+                backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+                backgroundMYSQL.execute("minuslike",vidA[scroll]);
+                backgroundMYSQL=null;
             }
             dislike.setImageResource(R.drawable.ic_baseline_thumb_down_24);
             dislike.setTag("1");
             dislikeStatus=true;
+            disliked[scroll]=vidA[scroll];
+            addDisLike();
+            backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+            backgroundMYSQL.execute("addDislike",vidA[scroll]);
+            backgroundMYSQL=null;
         }
         else
         {
             dislike.setImageResource(R.drawable.ic_baseline_thumb_down_white);
             dislike.setTag("0");
             dislikeStatus=false;
+            disliked[scroll]="-1";
+            minusDisLike();
+            backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+            backgroundMYSQL.execute("minusDislike",vidA[scroll]);
+            backgroundMYSQL=null;
         }
 
     }
@@ -286,15 +468,12 @@ public class VideoActivity extends AppCompatActivity {
     public void showMore(View view)
     {
         Intent popUpWindowIntent = new Intent(this,more_options.class);
+        popUpWindowIntent.putExtra("des",desA[scroll]);
+        popUpWindowIntent.putExtra("vid",vidA[scroll]);
         startActivity(popUpWindowIntent);
     }
 
-    //showComment fundtion
-    public void showComment(View view)
-    {
-        Intent commentIntent = new Intent(this,CommentActivity.class);
-        startActivity(commentIntent);
-    }
+
     public void goToParent(View view)
     {
         Intent parentIntent = new Intent(this,MainActivity.class);
@@ -302,7 +481,65 @@ public class VideoActivity extends AppCompatActivity {
     }
     public void followButton(View view)
     {
-        Toast.makeText(this, "Follow is clicked..", Toast.LENGTH_SHORT).show();
+        if(followed[scroll].equals("-1"))
+        {
+            followed[scroll]=unameA[scroll];
+            SQLiteDatabaseClass sql = new SQLiteDatabaseClass(this);
+            int id=sql.getLogin();
+            sql=null;
+            backgroundMYSQL = new BackgroundMYSQL(getApplicationContext());
+            backgroundMYSQL.execute("follow", ""+id,unameA[scroll]);
+            backgroundMYSQL=null;
+            follow.setText("Unfollow");
+        }
+        else
+        {
+            followed[scroll]="-1";
+            follow.setText("Follow");
+        }
     }
 
+    public void download(View view) {
+        String path1 = "https://firebasestorage.googleapis.com/v0/b/cpe-project-ddf59.appspot.com/o/videos%2F"+locationA[scroll]+"?alt=media&token=842e3c95-0e66-4988-b840-cfd48d9a2020";
+        downloadManager(path1);
+    }
+    private void downloadManager(String url) {
+
+        Toast.makeText(this, "Download Started", Toast.LENGTH_SHORT).show();
+        try{
+            DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            Uri uri = Uri.parse(url);
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+            long reference = manager.enqueue(request);
+        }catch (Exception e)
+        {
+            Log.d("DownloadError",""+e);
+        }
+
+    }
+    public void addLike()
+    {
+        int no = Integer.parseInt(likeNo.getText().toString());
+        no=no+1;
+        likeNo.setText(""+no);
+    }
+    public void minusLike()
+    {
+        int no = Integer.parseInt(likeNo.getText().toString());
+        no--;
+        likeNo.setText(""+no);
+    }
+    public void addDisLike()
+    {
+        int no = Integer.parseInt(dislikeNo.getText().toString());
+        no++;
+        dislikeNo.setText(""+no);
+    }
+    public void minusDisLike()
+    {
+        int no = Integer.parseInt(dislikeNo.getText().toString());
+        no--;
+        dislikeNo.setText(""+no);
+    }
 }

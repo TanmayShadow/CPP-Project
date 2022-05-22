@@ -12,49 +12,29 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="#424141"
+        android:background="#000000"
+        android:drawableLeft="@drawable/white_flag"
         android:onClick="showReport"
         android:text="@string/report"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:layout_constraintTop_toBottomOf="@+id/button8" />
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="37dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="5dp"
-        android:background="#424141"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
-        app:srcCompat="@drawable/white_flag" />
+        app:layout_constraintTop_toBottomOf="@+id/button8" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#424141"
+        android:background="#000000"
+        android:drawableLeft="@drawable/white_about_icon"
         android:onClick="showAbout"
         android:text="@string/about"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="37dp"
-        android:layout_height="48dp"
-        android:background="#424141"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/white_about_icon" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView8"
@@ -67,6 +47,7 @@
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,6 +118,7 @@
         android:background="#8F8F8F"
         android:text="@string/submit"
         android:textColor="#FBFBFB"
+        android:onClick="submitReport"
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"

@@ -11,6 +11,7 @@
         android:id="@+id/videoView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:foregroundGravity="center"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,37 +37,22 @@
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-7dp"
-        android:layout_marginEnd="45dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="-3dp"
         android:text="@string/download"
         android:textColor="#F6F2F2"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/videoView"
-        app:layout_constraintHorizontal_bias="0.262"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-7dp"
-        android:layout_marginEnd="40dp"
-        android:text="@string/comment"
-        android:textColor="#F6F2F2"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/videoView"
-        app:layout_constraintHorizontal_bias="0.264"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-7dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="9dp"
         android:text="@string/dislike"
         android:textColor="#F6F2F2"
         android:textSize="14sp"
@@ -79,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="172dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="2dp"
         android:contentDescription="@string/like"
         android:minWidth="48dp"
         android:minHeight="48dp"
@@ -93,8 +79,8 @@
         android:id="@+id/textView4"
         android:layout_width="33dp"
         android:layout_height="30dp"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="-7dp"
-        android:layout_marginEnd="4dp"
         android:text="@string/like"
         android:textColor="#F6F2F2"
         android:textSize="14sp"
@@ -128,29 +114,17 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:onClick="showComment"
-        app:layout_constraintEnd_toEndOf="@+id/videoView"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/comment_box"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageView
         android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="13dp"
         android:layout_marginEnd="4dp"
+        android:contentDescription="@string/download"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:onClick="download"
         app:layout_constraintEnd_toEndOf="@+id/videoView"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:srcCompat="@drawable/download_image" />
 
     <ImageView
@@ -185,7 +159,7 @@
         android:layout_height="83dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/videoView"
         app:srcCompat="@drawable/like_image" />

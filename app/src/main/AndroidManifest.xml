@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.videoplayer">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,9 +14,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoPlayer">
         <activity
+            android:name=".PreVideoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PreImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MusicLayout"
+            android:exported="false" />
+        <activity
+            android:name=".MusicActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".CommentActivity"
             android:exported="false"
-            android:theme="@style/Theme.VideoPlayer.popMe"/>
+            android:theme="@style/Theme.VideoPlayer.popMe" />
         <activity
             android:name=".more_options"
             android:exported="false"
@@ -21,8 +51,8 @@
             android:name=".VideoActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
