@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "174989991070",
+    "project_id": "cpe-project-ddf59",
+    "storage_bucket": "cpe-project-ddf59.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174989991070:android:9f4aaeff82a98630ad2f8f",
+        "android_client_info": {
+          "package_name": "com.example.videoplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174989991070-u4v207c151341ek0gmojgr9bu86fs2rh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDghumH79nCKkQ6pb1jH-ikZ1JHrkcYX6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174989991070-u4v207c151341ek0gmojgr9bu86fs2rh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
