@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
     <color name="levender">#CD20D3</color>
+    <color name="startblue">#2BD7F5</color>
+    <color name="graylight">#BAB9BEBC</color>
 </resources>

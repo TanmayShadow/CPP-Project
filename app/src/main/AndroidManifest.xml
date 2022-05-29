@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoPlayer">
         <activity
+            android:name=".ShowImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyContentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PreAudioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PreUserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".PreVideoActivity"
             android:exported="false" />
         <activity
@@ -21,7 +40,8 @@
             android:exported="false" />
         <activity
             android:name=".ImageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".UploadActivity"
             android:exported="false" />
@@ -37,8 +57,7 @@
         <activity
             android:name=".MusicActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".CommentActivity"
             android:exported="false"
@@ -51,8 +70,7 @@
             android:name=".VideoActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -38,7 +38,7 @@ public class SQLiteDatabaseClass extends SQLiteOpenHelper{
         }
         return -1;
     }
-    public void deleteLogin(int id)
+    public void deleteLogin()
     {
         String delete = "DELETE FROM login";
         sdb.execSQL(delete);

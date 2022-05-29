@@ -58,6 +58,6 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/more_icon" />
+        app:srcCompat="@drawable/send_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

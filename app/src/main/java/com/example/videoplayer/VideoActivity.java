@@ -1,5 +1,6 @@
 package com.example.videoplayer;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +37,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
-public class VideoActivity extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     BackgroundMYSQL backgroundMYSQL;
     int videoStatus;
@@ -60,14 +64,21 @@ public class VideoActivity extends AppCompatActivity {
     TextView likeNo,dislikeNo,vnameText,unameText;
     Random rand;
     Button follow;
+    BottomNavigationView bmv;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         rand = new Random();
+
+        bmv= findViewById(R.id.bmv);
+        bmv.setSelectedItemId(R.id.videos);
+        bmv.setOnNavigationItemSelectedListener(this);
+
 
 
 
@@ -541,5 +552,41 @@ public class VideoActivity extends AppCompatActivity {
         int no = Integer.parseInt(dislikeNo.getText().toString());
         no--;
         dislikeNo.setText(""+no);
+    }
+
+    public void sendIt(View view) {
+        String path1 = "https://firebasestorage.googleapis.com/v0/b/cpe-project-ddf59.appspot.com/o/videos%2F"+locationA[scroll]+"?alt=media";
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT,"Video");
+        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,path1);
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.profile:
+                Intent intent =new Intent(this,PreUserProfileActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.videos:
+                Intent i = new Intent(this,PreVideoActivity.class);
+                startActivity(i);
+                return true;
+
+            case R.id.images:
+                Intent i1 = new Intent(this,PreImageActivity.class);
+                startActivity(i1);
+                return true;
+
+            case R.id.audios:
+                Intent i2 = new Intent(this,PreAudioActivity.class);
+                startActivity(i2);
+                return true;
+        }
+        return false;
     }
 }

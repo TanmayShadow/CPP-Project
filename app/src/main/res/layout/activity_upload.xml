@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UploadActivity">
+    tools:context=".UploadActivity"
+    android:background="@drawable/gradientbackground">
 
     <EditText
         android:id="@+id/content_name"
@@ -15,6 +16,7 @@
         android:hint="Content Name"
         android:minHeight="48dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
@@ -30,6 +32,7 @@
         android:inputType="textMultiLine"
         android:minHeight="48dp"
         android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,12 +67,14 @@
         android:layout_marginTop="40dp"
         android:text="Upload"
         android:textSize="30sp"
+        android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,6 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,13 +102,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#AE16EF"
+        android:onClick="upload"
         android:text="Upload"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bmv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        android:onClick="upload"/>
+        app:layout_constraintTop_toBottomOf="@+id/description" />
     <ImageView
         android:id="@+id/i1"
         android:layout_width="wrap_content"
@@ -111,5 +118,19 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="50dp"
         android:visibility="invisible"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bmv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

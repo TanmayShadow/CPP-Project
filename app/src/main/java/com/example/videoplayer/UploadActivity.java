@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,17 +45,18 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class UploadActivity extends AppCompatActivity {
+public class UploadActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
     ArrayAdapter<String> a;
     String str[] = {"None","Video","Image","Audio"};
     String type="";
     Spinner content_type;
     EditText name,description;
     ImageView i1;
-    Uri imageUri,videoUri,originalImage;
+    Uri imageUri,videoUri,originalImage,audioUri;
     Bitmap bitmapImage;
     int width,height,id;
     StorageReference storageReference,originalReference;
@@ -61,11 +64,17 @@ public class UploadActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     BackgroundMYSQL backgroundMYSQL;
     OutputStream outputStream;
+    BottomNavigationView bmv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
+        bmv= findViewById(R.id.bmv);
+        bmv.setSelectedItemId(R.id.profile);
+        bmv.setOnNavigationItemSelectedListener(this);
 
         content_type=findViewById(R.id.content_type);
         name=findViewById(R.id.content_name);
@@ -92,6 +101,7 @@ public class UploadActivity extends AppCompatActivity {
                         break;
                     case "Audio":
                         type="audio";
+                        getAudio();
                         break;
                 }
             }
@@ -101,6 +111,32 @@ public class UploadActivity extends AppCompatActivity {
                 type="";
             }
         });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.profile:
+                Intent intent =new Intent(this,PreUserProfileActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.videos:
+                Intent i = new Intent(this,PreVideoActivity.class);
+                startActivity(i);
+                return true;
+
+            case R.id.images:
+                Intent i1 = new Intent(this,PreImageActivity.class);
+                startActivity(i1);
+                return true;
+
+            case R.id.audios:
+                Intent i2 = new Intent(this,PreAudioActivity.class);
+                startActivity(i2);
+                return true;
+        }
+        return false;
     }
 
     public void upload(View view) {
@@ -120,7 +156,7 @@ public class UploadActivity extends AppCompatActivity {
             }
             else
             {
-                String filename = id+"_"+formatter.format(now)+".png";
+                String filename = id+"_"+formatter.format(now);
 
                 if(type.equals("image"))
                 {
@@ -177,6 +213,26 @@ public class UploadActivity extends AppCompatActivity {
                         }
                     });
                 }
+                else if(type.equals("audio"))
+                {
+                    storageReference= FirebaseStorage.getInstance().getReference("audios/"+filename);
+                    storageReference.putFile(audioUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            backgroundMYSQL.execute("upload", id+"",type,cname,cdescription,filename);
+                            if(progressDialog.isShowing())
+                                progressDialog.dismiss();
+                            Toast.makeText(UploadActivity.this, "Audio Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            if(progressDialog.isShowing())
+                                progressDialog.dismiss();
+                            Toast.makeText(UploadActivity.this, "Failed to upload audio", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         }
         else
@@ -201,6 +257,14 @@ public class UploadActivity extends AppCompatActivity {
         intent.setType("video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,101);
+    }
+
+    public void getAudio()
+    {
+        Intent intent = new Intent();
+        intent.setType("audio/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,102);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -275,6 +339,10 @@ public class UploadActivity extends AppCompatActivity {
         else if(requestCode==101 && data!=null && data.getData()!=null)
         {
             videoUri=data.getData();
+        }
+        else if(requestCode==102 && data!=null && data.getData()!=null)
+        {
+            audioUri=data.getData();
         }
     }
 

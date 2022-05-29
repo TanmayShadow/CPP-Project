@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="#201E1E">
 
     <ImageView
         android:id="@+id/listViewImage"
@@ -23,8 +24,45 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:text="Name"
-        android:textColor="#000000"
+        android:textColor="#FA0000"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listViewImage" />
+
+    <TextView
+        android:id="@+id/listViewImageImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="IName"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/listViewName"
+        app:layout_constraintTop_toBottomOf="@+id/listViewImage" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/listViewImageImage"
+        app:layout_constraintTop_toBottomOf="@+id/listViewImage"
+        app:srcCompat="@drawable/send_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="__________________________________________________________________________________________________________"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView20"
+        tools:layout_editor_absoluteX="10dp" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

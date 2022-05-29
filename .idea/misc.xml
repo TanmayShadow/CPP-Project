@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable-v24/audio.xml" value="0.134" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable-v24/buttonstyleithgradient.xml" value="0.134" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable-v24/gradientbackground.xml" value="0.134" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable-v24/img_video.xml" value="0.134" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable-v24/video.xml" value="0.134" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/about_icon.xml" value="0.2265" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/comment_box.xml" value="0.2265" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/download_image.xml" value="0.2265" />
@@ -19,28 +23,38 @@
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/new_like_thumb_white.xml" value="0.2265" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/play_music.xml" value="0.1595" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/report_flag_icon.xml" value="0.2265" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/send_black.xml" value="0.1655" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/send_icon.xml" value="0.2265" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/upload.xml" value="0.1655" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/drawable/vertical.xml" value="0.1615" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/about_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_comment.xml" value="0.25" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_forgot_password.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_image.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_more_options.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_music.xml" value="0.264" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_music_layout.xml" value="0.264" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_my_content.xml" value="0.264" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_pre_audio.xml" value="0.264" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_pre_image.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_pre_profile2.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_pre_user_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_pre_video.xml" value="0.264" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_profile.xml" value="0.264" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_show_image.xml" value="0.25" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_signup.xml" value="0.25" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_upload.xml" value="0.264" />
-        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_video.xml" value="0.25" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_user_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/activity_video.xml" value="0.264" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/comment_list_layout.xml" value="0.264" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/image_list.xml" value="0.264" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/item.xml" value="0.2" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/layout_mycontent_adapter.xml" value="0.264" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/layout/more_button_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/menu/menu_bottom.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Tanmay/AndroidStudioProjects/VideoPlayer/app/src/main/res/mipmap-mdpi/ic_launcher.xml" value="0.134" />
       </map>
     </option>

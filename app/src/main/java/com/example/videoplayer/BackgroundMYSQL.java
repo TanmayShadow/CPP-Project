@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -322,6 +323,153 @@ public class BackgroundMYSQL extends AsyncTask<String,Void,String> {
                 e.printStackTrace();
             }
         }
+        else if(type.equals("getAudio")) {
+            String login_url = "https://haematopoietic-memo.000webhostapp.com/getAudio.php";
+            try {
+                URL url = new URL(login_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("ctype", "UTF-8") + "=" + URLEncoder.encode("image", "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(type.equals("getProfile")) {
+            String Uid = params[1];
+            String login_url = "https://haematopoietic-memo.000webhostapp.com/profile.php";
+            try {
+                URL url = new URL(login_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("Uid", "UTF-8") + "=" + URLEncoder.encode(Uid, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(type.equals("forgotPassword")) {
+            String username = params[1];
+            String login_url = "https://haematopoietic-memo.000webhostapp.com/mailSend.php";
+            try {
+                URL url = new URL(login_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(type.equals("delete"))
+        {
+            String location = params[1];
+
+            String login_url="https://haematopoietic-memo.000webhostapp.com/delete.php";
+            try {
+                URL url = new URL(login_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                String post_data = URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                String result="";
+                String line="";
+                while((line=bufferedReader.readLine())!=null)
+                {
+                    result += line;
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         else if(type.equals("report")) {
             String login_url = "https://haematopoietic-memo.000webhostapp.com/addReport.php";
             try {
@@ -570,6 +718,22 @@ public class BackgroundMYSQL extends AsyncTask<String,Void,String> {
             }
 
         }
+//        else if(type.equals("profileUser"))
+//        {
+//            SQLiteDatabaseClass db;
+//            int id = db.getLogin();
+//            Intent i;
+//            if(id!=-1)
+//            {
+//                i = new Intent(this, UserProfileActivity.class);
+//                i.putExtra("ID",id);
+//            }
+//            else
+//            {
+//                i = new Intent(this, LoginActivity.class);
+//            }
+//            startActivity(i);
+//        }
         return null;
     }
 
@@ -641,6 +805,7 @@ public class BackgroundMYSQL extends AsyncTask<String,Void,String> {
                 e.printStackTrace();
                 a.setMessage("Invalid email or password");
                 a.show();
+                Log.d("SignupError",""+e);
             }
         }
         else if(type.equals("uploadI"))
@@ -687,9 +852,11 @@ public class BackgroundMYSQL extends AsyncTask<String,Void,String> {
                 String status=obj.getString("success");
                 location=obj.getString("location");
                 names=obj.getString("name");
+                String iName=obj.getString("iName");
                 Intent i = new Intent(context,ImageActivity.class);
                 i.putExtra("Location",location);
                 i.putExtra("Name",names);
+                i.putExtra("iName",iName);
                 context.startActivity(i);
 
             } catch (JSONException e) {
@@ -746,6 +913,64 @@ public class BackgroundMYSQL extends AsyncTask<String,Void,String> {
 
             }
         }
+        else if(type.equals("getAudio"))
+        {
+            //getting the string from json
+            try {
+                JSONObject obj = new JSONObject(result);
+                String status=obj.getString("success");
+                location=obj.getString("location");
+                cname=obj.getString("aname");
+                vid=obj.getString("vid");
+                Intent i1 = new Intent(context,MusicActivity.class);
+                i1.putExtra("Location",location);
+                i1.putExtra("AName",cname);
+                i1.putExtra("aid",vid);
+                context.startActivity(i1);
+
+            } catch (JSONException e) {
+                Log.d("JSONError:",""+e);
+                e.printStackTrace();
+
+            }
+        }
+        else if(type.equals("getProfile"))
+        {
+            //getting the string from json
+            try {
+                JSONObject obj = new JSONObject(result);
+                String status=obj.getString("success");
+                String uName = obj.getString("name");
+                String imageLocation = obj.getString("image");
+                String videoLocation = obj.getString("video");
+                String audioLocation = obj.getString("audio");
+                String following = obj.getString("following");
+                String followers = obj.getString("followers");
+                String imageName = obj.getString("imageName");
+                String videoName = obj.getString("videoName");
+                String audioName = obj.getString("audioName");
+
+
+
+                Intent i1 = new Intent(context,UserProfileActivity.class);
+                i1.putExtra("UName",uName);
+                i1.putExtra("imageLocation",imageLocation);
+                i1.putExtra("videoLocation",videoLocation);
+                i1.putExtra("audioLocation",audioLocation);
+                i1.putExtra("following",following);
+                i1.putExtra("followers",followers);
+                i1.putExtra("imageName",imageName);
+                i1.putExtra("videoName",videoName);
+                i1.putExtra("audioName",audioName);
+
+                context.startActivity(i1);
+
+            } catch (JSONException e) {
+                Log.d("JSONError:",""+e);
+                e.printStackTrace();
+
+            }
+        }
         else if(type.equals("report"))
         {
             try{
@@ -791,6 +1016,62 @@ public class BackgroundMYSQL extends AsyncTask<String,Void,String> {
             } catch (JSONException e) {
                 e.printStackTrace();
 
+            }
+        }
+        else if(type.equals("delete"))
+        {
+            //getting the string from json
+            a= new AlertDialog.Builder(context).create();
+            a.setTitle("Login Status");
+            try {
+                JSONObject obj = new JSONObject(result);
+//                String id=obj.getString("id");//this is the main id of user that we have to pass to new intent
+                String status=obj.getString("success");
+//                Toast.makeText(context, ""+status, Toast.LENGTH_LONG).show();
+                if(status.equals("1"))
+                {
+                    Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(context,PreUserProfileActivity.class);
+                    context.startActivity(i);
+                }
+                else
+                {
+                    a.setMessage("Failed to Delete");
+                    a.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                a.setMessage("Server Error");
+                a.show();
+            }
+        }
+        else if(type.equals("forgotPassword"))
+        {
+            //getting the string from json
+            a= new AlertDialog.Builder(context).create();
+            a.setTitle("Forgot Password");
+            try {
+                JSONObject obj = new JSONObject(result);
+//                String id=obj.getString("id");//this is the main id of user that we have to pass to new intent
+                String status=obj.getString("success");
+//                Toast.makeText(context, ""+status, Toast.LENGTH_LONG).show();
+                if(status.equals("1"))
+                {
+//                    a.setMessage("Password send to your registered E-mail");
+//                    a.show();
+                    Toast.makeText(context, "Password send to your registered E-mail", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(context,LoginActivity.class);
+                    context.startActivity(i);
+                }
+                else
+                {
+                    a.setMessage("Invalid Username");
+                    a.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                a.setMessage("Server Error");
+                a.show();
             }
         }
 

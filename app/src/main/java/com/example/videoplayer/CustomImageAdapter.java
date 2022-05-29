@@ -1,6 +1,7 @@
 package com.example.videoplayer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -32,15 +36,17 @@ public class CustomImageAdapter extends BaseAdapter {
     Context context;
     String[] location;
     String[] names;
+    String[] iName;
     LayoutInflater inflater;
     StorageReference storageReference;
     int width,height;
     Uri imageUri;
-    CustomImageAdapter(Context c,String[] l,String[] n)
+    CustomImageAdapter(Context c,String[] l,String[] n,String[] in)
     {
         this.context=c;
         this.location=l;
         this.names=n;
+        this.iName=in;
         inflater=LayoutInflater.from(c);
     }
 
@@ -63,10 +69,12 @@ public class CustomImageAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view=inflater.inflate(R.layout.image_list,null);
         TextView name = view.findViewById(R.id.listViewName);
+        TextView INameText = view.findViewById(R.id.listViewImageImage);
+        ImageView b = view.findViewById(R.id.imageView20);
         ImageView image = view.findViewById(R.id.listViewImage);
 
         name.setText(names[i]);
-//        String url = "https://firebasestorage.googleapis.com/v0/b/cpe-project-ddf59.appspot.com/o/images%2F"+location[i]+"?alt=media";
+        INameText.setText(iName[i]);
 //        try {
 //            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(url).getContent());
 //            image.setImageBitmap(bitmap);
@@ -144,6 +152,17 @@ public class CustomImageAdapter extends BaseAdapter {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.d("Failure",""+e);
+                }
+            });
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String path1 = "https://firebasestorage.googleapis.com/v0/b/cpe-project-ddf59.appspot.com/o/images%2F"+location[i]+"?alt=media";
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT,"Video");
+                    shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,path1);
+                    context.startActivity(Intent.createChooser(shareIntent, "Share via"));
                 }
             });
         }

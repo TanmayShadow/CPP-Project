@@ -13,9 +13,9 @@
         android:layout_height="0dp"
         android:foregroundGravity="center"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bmv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -89,16 +89,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="45dp"
-        android:layout_height="32dp"
-        android:onClick="goToParent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,7 +126,8 @@
         app:layout_constraintEnd_toEndOf="@+id/videoView"
         app:layout_constraintStart_toStartOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:srcCompat="@drawable/send_icon" />
+        app:srcCompat="@drawable/send_icon"
+        android:onClick="sendIt"/>
 
     <ImageView
         android:id="@+id/imageView8"
@@ -168,6 +159,7 @@
         android:id="@+id/imageView12"
         android:layout_width="39dp"
         android:layout_height="41dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/smiley" />
@@ -176,12 +168,13 @@
         android:id="@+id/button6"
         android:layout_width="128dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/new_button_shape"
         android:onClick="followButton"
         android:text="@string/follow"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -189,6 +182,8 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="12dp"
         android:text="Username"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
@@ -203,10 +198,13 @@
         android:backgroundTint="#FA1BEF"
         android:progressBackgroundTint="#FA1BEF"
         android:progressTint="#FFFFFF"
+        android:layout_marginTop="20dp"
         android:thumb="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/videoView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <TextView
         android:id="@+id/textView14"
@@ -216,7 +214,21 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bmv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom"></com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
